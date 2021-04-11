@@ -17,5 +17,7 @@ namespace FrontEnd.Models
         public string Correo { get; set; }
 
         public virtual Empresa CodEmpresaNavigation { get; set; }
+        public virtual ICollection<Tickets> Tickets { get; set; }
+
     }
 }
