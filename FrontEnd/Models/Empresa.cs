@@ -11,10 +11,10 @@ namespace FrontEnd.Models
     {
         public Empresa()
         {
-            Boleteria = new HashSet<Boleteria>();
-            ControlAforo = new HashSet<ControlAforo>();
-            Publicidad = new HashSet<Publicidad>();
-            Usuarios = new HashSet<Usuarios>();
+            //Boleteria = new HashSet<Boleteria>();
+            //ControlAforo = new HashSet<ControlAforo>();
+            //Publicidad = new HashSet<Publicidad>();
+            //Usuarios = new HashSet<Usuarios>();
         }
 
         public int CodEmpresa { get; set; }
@@ -25,6 +25,7 @@ namespace FrontEnd.Models
         public virtual ICollection<Boleteria> Boleteria { get; set; }
         public virtual ICollection<ControlAforo> ControlAforo { get; set; }
         public virtual ICollection<Publicidad> Publicidad { get; set; }
+        public virtual ICollection<Tickets> Tickets { get; set; }
         public virtual ICollection<Usuarios> Usuarios { get; set; }
     }
 }
