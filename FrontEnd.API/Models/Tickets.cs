@@ -14,6 +14,9 @@ namespace FrontEnd.API.Models
         public DateTime Fecha { get; set; }
         public int? Estado { get; set; }
 
+        public virtual Empresa CodEmpresaNavigation { get; set; }
+        public virtual Usuarios UsuarioNavigation { get; set; }
         public virtual ICollection<BoleteriaReservados> BoleteriaReservados { get; set; }
+        
     }
 }
