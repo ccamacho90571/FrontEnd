@@ -1,2 +1,22 @@
 FrontEnd/bin/
 FrontEnd.API/bin/
+FrontEnd/obj/Debug/netcoreapp3.1/FrontEnd.assets.cache
+FrontEnd/obj/Debug/netcoreapp3.1/FrontEnd.csproj.FileListAbsolute.txt
+FrontEnd/obj/Debug/netcoreapp3.1/FrontEnd.csprojAssemblyReference.cache
+FrontEnd/obj/Debug/netcoreapp3.1/FrontEnd.dll
+FrontEnd/obj/Debug/netcoreapp3.1/FrontEnd.pdb
+FrontEnd/obj/Debug/netcoreapp3.1/FrontEnd.Views.dll
+FrontEnd/obj/Debug/netcoreapp3.1/FrontEnd.Views.pdb
+FrontEnd/obj/Debug/netcoreapp3.1/Razor/Views/_ViewImports.cshtml.g.cs
+FrontEnd/obj/Debug/netcoreapp3.1/Razor/Views/_ViewStart.cshtml.g.cs
+FrontEnd/obj/Debug/netcoreapp3.1/Razor/Views/Home/Index.cshtml.g.cs
+FrontEnd/obj/Debug/netcoreapp3.1/Razor/Views/Home/Privacy.cshtml.g.cs
+FrontEnd/obj/Debug/netcoreapp3.1/Razor/Views/Shared/_Layout - Copia.cshtml.g.cs
+FrontEnd/obj/Debug/netcoreapp3.1/Razor/Views/Shared/_Layout.cshtml.g.cs
+FrontEnd/obj/Debug/netcoreapp3.1/Razor/Views/Shared/_ValidationScriptsPartial.cshtml.g.cs
+FrontEnd/obj/Debug/netcoreapp3.1/Razor/Views/Shared/Error.cshtml.g.cs
+FrontEnd/obj/Debug/netcoreapp3.1/Razor/Views/Usuarios/Create.cshtml.g.cs
+FrontEnd/obj/Debug/netcoreapp3.1/Razor/Views/Usuarios/Delete.cshtml.g.cs
+FrontEnd/obj/Debug/netcoreapp3.1/Razor/Views/Usuarios/Details.cshtml.g.cs
+FrontEnd/obj/Debug/netcoreapp3.1/Razor/Views/Usuarios/Edit.cshtml.g.cs
+FrontEnd/obj/Debug/netcoreapp3.1/Razor/Views/Usuarios/Index.cshtml.g.cs

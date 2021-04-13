@@ -1,0 +1,58 @@
+﻿@model FrontEnd.API.Models.Usuarios
+@{
+    ViewData["Title"] = "LogIn";
+    Layout = "~/Views/Shared/_LogIn.cshtml";
+
+
+
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+
+    <form class="login100-form validate-form">
+        <div class="container-fluid">
+            <img src="../img/logoCP.png" />
+        </div>
+
+        <span class="login100-form-title p-b-34 p-t-27">
+            Iniciar sesión
+        </span>
+        
+        <div class="wrap-input100 validate-input" data-validate="Escriba su usuario">
+
+            <input asp-for="Usuario" class="input100" type="text" placeholder="Usuario" />
+            <span asp-validation-for="Usuario" class="text-danger"></span>
+
+        </div>
+
+        <div class="wrap-input100 validate-input" data-validate="Escriba su contraseña">
+
+            <input asp-for="Contrasena" class="input100" type="password" placeholder="Contraseña" />
+            <span asp-validation-for="Contrasena" class="text-danger"></span>
+
+        </div>
+
+
+
+        <div class="container-login100-form-btn">
+            @Html.ValidationMessage("Error", new { Style="color: #FF665A;" })
+            <input type="submit" value="Ingresar" class="login100-form-btn" asp-action="LogIn" />
+
+        </div>
+
+        <div class="text-center p-t-90">
+            <a class="txt1" asp-action="Registro">
+                No tiene cuenta. Regístrese
+            </a>
+            <br>
+            <a class="txt1" href="#">
+               Recuperar contraseña
+            </a>
+        </div>
+    </form>
+
+
+}

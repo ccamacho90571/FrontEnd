@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using FrontEnd.Models;
+using Microsoft.EntityFrameworkCore;
+
+
 
 namespace FrontEnd
 {
@@ -23,7 +27,12 @@ namespace FrontEnd
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<CRPassContext>(options =>
+               options.UseSqlServer(
+                   Configuration.GetConnectionString("ConnectionAPI")));
+          
             services.AddControllersWithViews();
+            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

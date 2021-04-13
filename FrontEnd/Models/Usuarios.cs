@@ -12,7 +12,7 @@ namespace FrontEnd.Models
         public string Usuario { get; set; }
         public string Contrasena { get; set; }
         public bool Tipo { get; set; }
-        public int CodEmpresa { get; set; }
+        public int? CodEmpresa { get; set; }
         public string Nombre { get; set; }
         public string Correo { get; set; }
 

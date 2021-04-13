@@ -148,7 +148,6 @@ namespace FrontEnd.Models
                 entity.HasOne(d => d.CodEmpresaNavigation)
                     .WithMany(p => p.Usuarios)
                     .HasForeignKey(d => d.CodEmpresa)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Usuarios_Empresa");
             });
 
