@@ -127,6 +127,18 @@ namespace FrontEnd.Models
                 entity.Property(e => e.Usuario)
                     .IsRequired()
                     .HasMaxLength(10);
+
+                entity.HasOne(d => d.CodEmpresaNavigation)
+                    .WithMany(p => p.Tickets)
+                    .HasForeignKey(d => d.CodEmpresa)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tickets_Empresa");
+
+                entity.HasOne(d => d.UsuarioNavigation)
+                    .WithMany(p => p.Tickets)
+                    .HasForeignKey(d => d.Usuario)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Tickets_Usuarios");
             });
 
             modelBuilder.Entity<Usuarios>(entity =>
