@@ -1,17 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using FrontEnd.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+<<<<<<< HEAD
 using FrontEnd.Models;
 using Microsoft.EntityFrameworkCore;
 
 
+=======
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+>>>>>>> e0d344817674df6c24c680a48e438cac628904c9
 
 namespace FrontEnd
 {
@@ -30,7 +36,10 @@ namespace FrontEnd
             services.AddDbContext<CRPassContext>(options =>
                options.UseSqlServer(
                    Configuration.GetConnectionString("ConnectionAPI")));
+<<<<<<< HEAD
           
+=======
+>>>>>>> e0d344817674df6c24c680a48e438cac628904c9
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

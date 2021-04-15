@@ -24,3 +24,7 @@ FrontEnd/obj/Debug/netcoreapp3.1/Razor/Views/Usuarios/Index.cshtml.g.cs
 FrontEnd.API/obj/
 FrontEnd/FrontEnd.csproj
 FrontEnd.API/FrontEnd.API.csproj.user
+FrontEnd/obj/FrontEnd.csproj.nuget.dgspec.json
+FrontEnd/obj/FrontEnd.csproj.nuget.g.props
+FrontEnd/obj/project.assets.json
+FrontEnd/obj/project.nuget.cache

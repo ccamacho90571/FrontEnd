@@ -18,5 +18,9 @@ namespace FrontEnd.Models
 
         public virtual Empresa CodEmpresaNavigation { get; set; }
         public virtual ICollection<Tickets> Tickets { get; set; }
+<<<<<<< HEAD
+=======
+
+>>>>>>> e0d344817674df6c24c680a48e438cac628904c9
     }
 }
