@@ -20,3 +20,7 @@ FrontEnd/obj/Debug/netcoreapp3.1/Razor/Views/Usuarios/Delete.cshtml.g.cs
 FrontEnd/obj/Debug/netcoreapp3.1/Razor/Views/Usuarios/Details.cshtml.g.cs
 FrontEnd/obj/Debug/netcoreapp3.1/Razor/Views/Usuarios/Edit.cshtml.g.cs
 FrontEnd/obj/Debug/netcoreapp3.1/Razor/Views/Usuarios/Index.cshtml.g.cs
+.vs/
+FrontEnd.API/obj/
+FrontEnd/FrontEnd.csproj
+FrontEnd.API/FrontEnd.API.csproj.user
