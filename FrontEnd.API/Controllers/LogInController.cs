@@ -54,7 +54,7 @@ namespace FrontEnd.API.Controllers
                         cl.DefaultRequestHeaders.Clear();
                         cl.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                         User.Contrasena = Seguridad.EncryptString(Key, User.Contrasena);
-                        User.Nombre = User.Nombre.ToLower();
+                        User.Usuario = User.Usuario.ToLower();
                         HttpResponseMessage res = await cl.GetAsync("api/Usuarios/" + User.Usuario + "/" + User.Contrasena + "?usuario=" + User.Usuario);
 
                         if (res.IsSuccessStatusCode)
