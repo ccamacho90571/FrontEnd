@@ -38,7 +38,8 @@
 
 
         <div class="container-login100-form-btn">
-            @Html.ValidationMessage("Error", new { Style="color: #FF665A;" })
+            @Html.ValidationMessage("Error", new { Style = "color: #FF665A;" })
+            @Html.ValidationMessage("ErrorServer", new { Style = "color: #FF665A;" })
             <input type="submit" value="Ingresar" class="login100-form-btn" asp-action="LogIn" />
 
         </div>

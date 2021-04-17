@@ -62,30 +62,43 @@ namespace FrontEnd.API.Controllers
                             var auxres = res.Content.ReadAsStringAsync().Result;
                             aux = JsonConvert.DeserializeObject<data.Usuarios>(auxres);
 
-                        }
+                            if (aux.Usuario != null)
+                            {
+                                if (aux.Usuario == "Admin")
+                                {
 
-                        if (aux.Usuario == null)
+                                }
+                                else if (aux.Tipo)
+                                {
+
+                                    //HttpContext.Session.SetString("NombreCompleto", aux.Nombre);
+                                    return RedirectToAction("Index", "Home");
+                                }
+                                else
+                                {
+                                    return RedirectToAction("Index", "Home");
+                                }
+                            }
+                        }
+                        
+                        else if(res.StatusCode.ToString() == "NotFound")
                         {
                             ModelState.AddModelError("Error", "Usuario o contraseña son incorrectos");
                             return View();
                         }
+                        
+                        else if (res.StatusCode.ToString() == "InternalServerError")
+                        {
+                            ModelState.AddModelError("ErrorServer", "Problema de conexión. Contacte al administrador");
+                            return View();
+                        }
                         else
                         {
-                            if (aux.Usuario == "Admin")
-                            {
-
-                            }
-                            else if (aux.Tipo)
-                            {
-
-                                //HttpContext.Session.SetString("NombreCompleto", aux.Nombre);
-                                return RedirectToAction("Index", "Home");
-                            }
-                            else
-                            {
-                                return RedirectToAction("Index", "Home");
-                            }
+                          
+                           
                         }
+
+                       
 
 
                     }
