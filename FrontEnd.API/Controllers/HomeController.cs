@@ -23,7 +23,7 @@ namespace FrontEnd.API.Controllers
             _logger = logger;
         }
 
-        [Authorize(Roles = "Empresa")]
+        [Authorize(Roles = "Empresa,Administrador")]
      
         public IActionResult Index()
         {
@@ -62,6 +62,10 @@ namespace FrontEnd.API.Controllers
             return View();
         }
 
+        public IActionResult Dashboard()
+        {
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

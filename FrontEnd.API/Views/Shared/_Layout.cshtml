@@ -84,8 +84,8 @@
                 <div class="sidebar-content">
                     <div class="user">
                         @*<div class="avatar-sm float-left mr-2">
-                            <img src="~/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
-                        </div>*@
+                <img src="~/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+            </div>*@
                         <div class="info">
                             <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                                 <span>
@@ -123,7 +123,7 @@
                                 <h4 class="text-section">Menú principal</h4>
                             </li>
                             <li class="nav-item active">
-                                <a href="Principal_Cliente.html">
+                                <a href='@Url.Action("PrincipalUsuario", "Home")'>
                                     <i class="fas fa-wrench"></i>
                                     <p>Inicio</p>
 
@@ -151,7 +151,7 @@
 
                     }
 
-                    @if (User.IsInRole("Empresa"))
+                    @if (User.IsInRole("Administrador"))
                     {
                 <ul class="nav nav-primary">
                     <li class="nav-section">
@@ -161,54 +161,99 @@
                         <h4 class="text-section">Menú principal</h4>
                     </li>
                     <li class="nav-item">
-                        <a href='@Url.Action("Index", "ControlAforo")'>
+                        <a href="Principal_Cliente.html">
                             <i class="fas fa-wrench"></i>
-                            <p>Control de aforo</p>
+                            <p>Inicio</p>
 
                         </a>
 
                     </li>
                     <li class="nav-item">
-                        <a href='@Url.Action("Index", "Boleteria")'>
-                            <i class="fas fa-wrench"></i>
-                            <p>Boletería</p>
+                        <a href='@Url.Action("Index", "Empresa")'>
+                            <i class="far fa-eye"></i>
+                            <p>Empresas</p>
 
                         </a>
 
                     </li>
-                     <li class="nav-item">
-                        <a href='@Url.Action("Index", "Publicidad")'>
-                            <i class="fas fa-wrench"></i>
-                            <p>Publicidad</p>
-
-                        </a>
-
-                    </li>
-                     <li class="nav-item">
-                         <a href='@Url.Action("ValidarTicket", "Tickets")'>
-                             <i class="far fa-eye"></i>
-                             <p>Reservas</p>
-
-                         </a>
-
-                     </li>
                     <li class="nav-item">
-                        <a href='@Url.Action("ValidarTicket", "Tickets")'>
+                        <a href='@Url.Action("Index", "Usuarios")'>
                             <i class="fas fa-ticket-alt"></i>
-                            <p>Validar ticket</p>
+                            <p>Usuarios</p>
 
                         </a>
 
                     </li>
                     <li class="nav-item">
-                        <a href="HacerReserva_Cliente.html">
-                            <i class="fas fa-ticket-alt"></i>
+                        <a href='@Url.Action("Dashboard", "Home")'>
+                            <i class="fas fa-tachometer-alt"></i>
                             <p>Dashboard</p>
 
                         </a>
 
                     </li>
                 </ul>
+
+                    }
+
+                    @if (User.IsInRole("Empresa"))
+                    {
+                        <ul class="nav nav-primary">
+                            <li class="nav-section">
+                                <span class="sidebar-mini-icon">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </span>
+                                <h4 class="text-section">Menú principal</h4>
+                            </li>
+                            <li class="nav-item">
+                                <a href='@Url.Action("Index", "ControlAforo")'>
+                                    <i class="fas fa-wrench"></i>
+                                    <p>Control de aforo</p>
+
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a href='@Url.Action("Index", "Boleteria")'>
+                                    <i class="fas fa-wrench"></i>
+                                    <p>Boletería</p>
+
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a href='@Url.Action("Index", "Publicidad")'>
+                                    <i class="fas fa-wrench"></i>
+                                    <p>Publicidad</p>
+
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a href='@Url.Action("ValidarTicket", "Tickets")'>
+                                    <i class="far fa-eye"></i>
+                                    <p>Reservas</p>
+
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a href='@Url.Action("ValidarTicket", "Tickets")'>
+                                    <i class="fas fa-ticket-alt"></i>
+                                    <p>Validar ticket</p>
+
+                                </a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a href="HacerReserva_Cliente.html">
+                                    <i class="fas fa-ticket-alt"></i>
+                                    <p>Dashboard</p>
+
+                                </a>
+
+                            </li>
+                        </ul>
 
                     }
 

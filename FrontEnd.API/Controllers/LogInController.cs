@@ -72,7 +72,7 @@ namespace FrontEnd.API.Controllers
                                 var claims = new List<Claim>();
 
                                 claims.Add(new Claim(ClaimTypes.Name, aux.Nombre));
-                                if (aux.Usuario == "admin")
+                                if (User.Usuario == "admin")
                                 {
                                     claims.Add(new Claim(ClaimTypes.Role, "Administrador"));
                                 }
@@ -83,8 +83,7 @@ namespace FrontEnd.API.Controllers
 
                                     HttpContext.Session.SetInt32("CodEmpresa", (int)aux.CodEmpresa);
                                     HttpContext.Session.SetString("Usuario", aux.Usuario);
-                                    //HttpContext.Session.SetString("NombreCompleto", aux.Nombre);
-
+                               
                                 }
                                 else
                                 {
@@ -108,11 +107,11 @@ AuthenticationScheme);
                         AuthenticationScheme,
                                     principal, props).Wait();
 
-                                if (!aux.Tipo)
+                                if (!aux.Tipo && User.Usuario != "admin")
                                 {
                                     return RedirectToAction("PrincipalUsuario", "Home");
                                 }
-                                else
+                                else 
                                 {
                                     return RedirectToAction("Index", "Home");
                                 }
