@@ -1,0 +1,54 @@
+﻿@model IEnumerable<FrontEnd.API.Models.ControlAforo>
+
+@{
+    ViewData["Title"] = "Control de aforo por día";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Control de aforo por día</h1>
+
+<p>
+    <a asp-action="Create">Crear nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CodControl)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CodEmpresa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroDia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroAforo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodControl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodEmpresaNavigation.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreDia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroAforo)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new {  id=item.CodControl  }) |
+              
+                @Html.ActionLink("Eliminar", "Delete", new {  id=item.CodControl })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

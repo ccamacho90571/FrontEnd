@@ -1,0 +1,46 @@
+﻿@model FrontEnd.API.Models.Tickets
+
+@{
+    ViewData["Title"] = "ValidarTicket";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Validar ticket de reserva</h1>
+
+<form asp-action="BuscarTicket" enctype="multipart/form-data" method="post">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-9">
+                <label asp-for="Nreserva" class="control-label"></label>
+                <input id="NReserva" type="text" name="Nreserva" class="form-control" multiple />
+
+            </div>
+            <div class="col-md-3">
+                <input id="btnBuscar" type="button" value="Buscar" class="btn btn-primary" onclick="TraerResultado" />
+            </div>
+
+        </div>
+        <div class="row">
+            @Html.ValidationMessage("ErrorReserva", new { Style = "color: #FF665A;" })
+            <div class="col-md-12" id="Ticket">
+                @Html.Partial("_BuscarTicket", Model.Usuario)
+            </div>
+        </div>
+
+
+    </div>
+
+</form>
+<script src="~/js/core/jquery.3.2.1.min.js"></script>
+<script type="text/javascript">
+
+    $('#btnBuscar').click(function (e) {
+        e.preventDefault();
+        var url = '@Url.Action("BuscarTicket")';
+        $.get(url, { NReserva: $("#NReserva").val() }, function (result) {
+            $('#Ticket').html(result);
+        });
+    });
+
+    
+</script>

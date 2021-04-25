@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +17,10 @@ namespace FrontEnd.API.Controllers
     {
         string baseurl = "https://localhost:44374/";
 
+
+
+
+        [Authorize(Roles ="Empresa")]
         // GET: Boleterias
         public async Task<IActionResult> Index()
         {
@@ -30,11 +36,14 @@ namespace FrontEnd.API.Controllers
                 {
                     var auxres = res.Content.ReadAsStringAsync().Result;
                     aux = JsonConvert.DeserializeObject<List<data.Boleteria>>(auxres);
+                    
                 }
             }
-            return View(aux);
+            return View(aux.Where(m => m.CodEmpresa == HttpContext.Session.GetInt32("CodEmpresa")));
         }
 
+
+        [Authorize(Roles = "Empresa")]
         // GET: Boleterias/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -54,6 +63,8 @@ namespace FrontEnd.API.Controllers
             return View(boleterias);
         }
 
+
+        [Authorize(Roles = "Empresa")]
         // GET: Boleterias/Create
         public IActionResult Create()
         {
@@ -64,6 +75,7 @@ namespace FrontEnd.API.Controllers
         // POST: Boleterias/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Empresa")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("CodBoleteria,CodEmpresa,Descripcion,Costo")] data.Boleteria boleteria)
@@ -72,6 +84,7 @@ namespace FrontEnd.API.Controllers
             {
                 using (var cl = new HttpClient())
                 {
+                    boleteria.CodEmpresa = (int)HttpContext.Session.GetInt32("CodEmpresa");
                     cl.BaseAddress = new Uri(baseurl);
                     var content = JsonConvert.SerializeObject(boleteria);
                     var buffer = System.Text.Encoding.UTF8.GetBytes(content);
@@ -86,10 +99,11 @@ namespace FrontEnd.API.Controllers
                 }
             }
 
-            ViewData["CodEmpresa"] = new SelectList(getAllEmpresa(), "CodEmpresa", "Nombre", boleteria.CodEmpresa);
+           
             return View(boleteria);
         }
 
+        [Authorize(Roles = "Empresa")]
         // GET: Boleterias/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -105,13 +119,14 @@ namespace FrontEnd.API.Controllers
                 return NotFound();
             }
 
-            ViewData["CodEmpresa"] = new SelectList(getAllEmpresa(), "CodEmpresa", "Nombre", boleteria.CodEmpresa);
+           
             return View(boleteria);
         }
 
         // POST: Boleterias/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Empresa")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("CodBoleteria,CodEmpresa,Descripcion,Costo")] data.Boleteria boleteria)
@@ -127,6 +142,7 @@ namespace FrontEnd.API.Controllers
                 {
                     using (var cl = new HttpClient())
                     {
+                        boleteria.CodEmpresa = (int)HttpContext.Session.GetInt32("CodEmpresa");
                         cl.BaseAddress = new Uri(baseurl);
                         var content = JsonConvert.SerializeObject(boleteria);
                         var buffer = System.Text.Encoding.UTF8.GetBytes(content);
@@ -155,10 +171,11 @@ namespace FrontEnd.API.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["CodEmpresa"] = new SelectList(getAllEmpresa(), "CodEmpresa", "Nombre", boleteria.CodEmpresa);
+           
             return View(boleteria);
         }
 
+        [Authorize(Roles = "Empresa")]
         // GET: Boleterias/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -195,12 +212,12 @@ namespace FrontEnd.API.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-
+        [Authorize(Roles = "Empresa")]
         private bool BoleteriaExists(int id)
         {
             return (GetById(id) != null);
         }
-
+        [Authorize(Roles = "Empresa")]
         private data.Boleteria GetById(int? id)
         {
             data.Boleteria aux = new data.Boleteria();
@@ -219,7 +236,7 @@ namespace FrontEnd.API.Controllers
             }
             return aux;
         }
-
+        [Authorize(Roles = "Empresa")]
         private List<data.Empresa> getAllEmpresa()
         {
 

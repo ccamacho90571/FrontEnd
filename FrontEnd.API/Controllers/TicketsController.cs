@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ namespace FrontEnd.API.Controllers
     public class TicketsController : Controller
     {
         string baseurl = "https://localhost:44374/";
+
 
 
         // GET: Tickets
@@ -37,6 +39,85 @@ namespace FrontEnd.API.Controllers
             }
             return View(aux);
         }
+
+        // GET: Tickets
+        public async Task<IActionResult> MisReservas()
+        {
+            //return View(await _context.Tickets.ToListAsync());
+
+            List<data.Tickets> aux = new List<data.Tickets>();
+            using (var cl = new HttpClient())
+            {
+                cl.BaseAddress = new Uri(baseurl);
+                cl.DefaultRequestHeaders.Clear();
+                cl.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                HttpResponseMessage res = await cl.GetAsync("api/Tickets");
+
+                if (res.IsSuccessStatusCode)
+                {
+                    var auxres = res.Content.ReadAsStringAsync().Result;
+                    aux = JsonConvert.DeserializeObject<List<data.Tickets>>(auxres);
+                }
+            }
+            return View(aux.Where(m => m.Usuario == HttpContext.Session.GetString("Usuario")));
+        }
+
+
+        public async Task<IActionResult> ValidarTicket()
+        {
+            data.Tickets ticket = new data.Tickets();
+            return View(ticket);
+        }
+
+        
+
+        public async Task<IActionResult> BuscarTicket(string NReserva)
+        {
+            try
+            {
+                data.Tickets aux = new data.Tickets();
+                using (var cl = new HttpClient())
+                {
+                    cl.BaseAddress = new Uri(baseurl);
+                    cl.DefaultRequestHeaders.Clear();
+                    cl.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+                 
+                    HttpResponseMessage res = cl.GetAsync("api/Tickets/Tickets/" + NReserva).Result;
+
+                    if (res.IsSuccessStatusCode)
+                    {
+                        var auxres = res.Content.ReadAsStringAsync().Result;
+                        aux = JsonConvert.DeserializeObject<data.Tickets>(auxres);
+
+                        if (aux.Estado != 1 || aux.CodEmpresa != HttpContext.Session.GetInt32("CodEmpresa"))
+                        {
+                            throw new Exception("Esta reserva no existe");
+                        }
+                        return PartialView("_BuscarTicket", aux);
+
+                    }
+                    else
+                    {
+
+                        throw new Exception("Esta reserva no existe");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("ErrorReserva", ex.Message);
+            }
+            return View();
+        }
+
+
+
+
+
+
+
+
+
 
         // GET: Tickets/Details/5
         public async Task<IActionResult> Details(int? id)

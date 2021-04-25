@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Mvc
+@using System.Security.Claims;
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -81,14 +83,14 @@
             <div class="sidebar-wrapper scrollbar scrollbar-inner">
                 <div class="sidebar-content">
                     <div class="user">
-                        <div class="avatar-sm float-left mr-2">
+                        @*<div class="avatar-sm float-left mr-2">
                             <img src="~/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
-                        </div>
+                        </div>*@
                         <div class="info">
                             <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                                 <span>
                                     ¡Bienvenido!
-                                    <span class="user-level">Carlos Camacho</span>
+                                    <span class="user-level">@User.Identity.Name</span>
                                     <span class="caret"></span>
                             </a>
                             <div class="clearfix"></div>
@@ -110,39 +112,107 @@
                             </div>
                         </div>
                     </div>
-                    <ul class="nav nav-primary">
-                        <li class="nav-section">
-                            <span class="sidebar-mini-icon">
-                                <i class="fa fa-ellipsis-h"></i>
-                            </span>
-                            <h4 class="text-section">Menú principal</h4>
-                        </li>
-                        <li class="nav-item active">
-                            <a href="Principal_Cliente.html">
-                                <i class="fas fa-wrench"></i>
-                                <p>Inicio</p>
 
-                            </a>
+                    @if (User.IsInRole("Usuario"))
+                    {
+                        <ul class="nav nav-primary">
+                            <li class="nav-section">
+                                <span class="sidebar-mini-icon">
+                                    <i class="fa fa-ellipsis-h"></i>
+                                </span>
+                                <h4 class="text-section">Menú principal</h4>
+                            </li>
+                            <li class="nav-item active">
+                                <a href="Principal_Cliente.html">
+                                    <i class="fas fa-wrench"></i>
+                                    <p>Inicio</p>
 
-                        </li>
-                        <li class="nav-item">
-                            <a href="MisTiquetes_Cliente.html">
-                                <i class="far fa-eye"></i>
-                                <p>Mis tiquetes</p>
+                                </a>
 
-                            </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href='@Url.Action("MisReservas", "Tickets")'>
+                                    <i class="far fa-eye"></i>
+                                    <p>Mis tiquetes</p>
 
-                        </li>
-                        <li class="nav-item">
-                            <a href="HacerReserva_Cliente.html">
-                                <i class="fas fa-ticket-alt"></i>
-                                <p>Hacer reserva</p>
+                                </a>
 
-                            </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="HacerReserva_Cliente.html">
+                                    <i class="fas fa-ticket-alt"></i>
+                                    <p>Hacer reserva</p>
 
-                        </li>
+                                </a>
 
-                    </ul>
+                            </li>
+
+                        </ul>
+
+                    }
+
+                    @if (User.IsInRole("Empresa"))
+                    {
+                <ul class="nav nav-primary">
+                    <li class="nav-section">
+                        <span class="sidebar-mini-icon">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </span>
+                        <h4 class="text-section">Menú principal</h4>
+                    </li>
+                    <li class="nav-item">
+                        <a href='@Url.Action("Index", "ControlAforo")'>
+                            <i class="fas fa-wrench"></i>
+                            <p>Control de aforo</p>
+
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a href='@Url.Action("Index", "Boleteria")'>
+                            <i class="fas fa-wrench"></i>
+                            <p>Boletería</p>
+
+                        </a>
+
+                    </li>
+                     <li class="nav-item">
+                        <a href='@Url.Action("Index", "Publicidad")'>
+                            <i class="fas fa-wrench"></i>
+                            <p>Publicidad</p>
+
+                        </a>
+
+                    </li>
+                     <li class="nav-item">
+                         <a href='@Url.Action("ValidarTicket", "Tickets")'>
+                             <i class="far fa-eye"></i>
+                             <p>Reservas</p>
+
+                         </a>
+
+                     </li>
+                    <li class="nav-item">
+                        <a href='@Url.Action("ValidarTicket", "Tickets")'>
+                            <i class="fas fa-ticket-alt"></i>
+                            <p>Validar ticket</p>
+
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a href="HacerReserva_Cliente.html">
+                            <i class="fas fa-ticket-alt"></i>
+                            <p>Dashboard</p>
+
+                        </a>
+
+                    </li>
+                </ul>
+
+                    }
+
+
                 </div>
             </div>
         </div>

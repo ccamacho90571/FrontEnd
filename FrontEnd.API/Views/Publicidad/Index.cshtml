@@ -1,0 +1,44 @@
+﻿@model IEnumerable<FrontEnd.API.Models.Publicidad>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Publicidad</h1>
+
+<p>
+    <a asp-action="Create">Crear nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CodPublicidad)
+            </th>
+          
+            <th>
+                @Html.DisplayNameFor(model => model.RutaArchivo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodPublicidad)
+            </td>
+          
+            <td>
+                <img src="@Url.Content(item.RutaArchivo)" alt=""  style=" width: 10%; "/>
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new {  id=item.CodPublicidad  }) |
+           
+                @Html.ActionLink("Eliminar", "Delete", new {  id=item.CodPublicidad  })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

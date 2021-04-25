@@ -7,17 +7,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-<<<<<<< HEAD
+
 using FrontEnd.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 
-=======
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
->>>>>>> e0d344817674df6c24c680a48e438cac628904c9
 
 namespace FrontEnd
 {
@@ -35,12 +34,11 @@ namespace FrontEnd
         {
             services.AddDbContext<CRPassContext>(options =>
                options.UseSqlServer(
-                   Configuration.GetConnectionString("ConnectionAPI")));
-<<<<<<< HEAD
-          
-=======
->>>>>>> e0d344817674df6c24c680a48e438cac628904c9
+                   Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddControllersWithViews();
+            //register Cookie Certification Services
+           
             services.AddRazorPages();
         }
 
@@ -67,8 +65,8 @@ namespace FrontEnd
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                     name: "default",
+                    pattern: "{controller=LogIn}/{action=LogIn}/{id?}"););
             });
         }
     }

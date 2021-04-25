@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using System.Net.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +11,10 @@ using FrontEnd.API.Tools;
 using data = FrontEnd.API.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 
 namespace FrontEnd.API.Controllers
 {
@@ -36,6 +40,7 @@ namespace FrontEnd.API.Controllers
 
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> LogIn(data.Usuarios User)
         {
             var secretkey = Key;
@@ -64,20 +69,56 @@ namespace FrontEnd.API.Controllers
 
                             if (aux.Usuario != null)
                             {
-                                if (aux.Usuario == "Admin")
-                                {
+                                var claims = new List<Claim>();
 
+                                claims.Add(new Claim(ClaimTypes.Name, aux.Nombre));
+                                if (aux.Usuario == "admin")
+                                {
+                                    claims.Add(new Claim(ClaimTypes.Role, "Administrador"));
                                 }
                                 else if (aux.Tipo)
                                 {
+                                  
+                                    claims.Add(new Claim(ClaimTypes.Role, "Empresa"));
 
+                                    HttpContext.Session.SetInt32("CodEmpresa", (int)aux.CodEmpresa);
+                                    HttpContext.Session.SetString("Usuario", aux.Usuario);
                                     //HttpContext.Session.SetString("NombreCompleto", aux.Nombre);
-                                    return RedirectToAction("Index", "Home");
+
+                                }
+                                else
+                                {
+                                    HttpContext.Session.SetString("Usuario", aux.Usuario);
+
+                                    claims.Add(new Claim(ClaimTypes.Role, "Usuario"));
+
+                                    
+                                }
+                                var identity = new ClaimsIdentity(
+        claims, CookieAuthenticationDefaults.
+AuthenticationScheme);
+
+                                var principal = new ClaimsPrincipal(identity);
+
+                                var props = new AuthenticationProperties();
+
+
+                                HttpContext.SignInAsync(
+                                    CookieAuthenticationDefaults.
+                        AuthenticationScheme,
+                                    principal, props).Wait();
+
+                                if (!aux.Tipo)
+                                {
+                                    return RedirectToAction("PrincipalUsuario", "Home");
                                 }
                                 else
                                 {
                                     return RedirectToAction("Index", "Home");
                                 }
+
+
+                               
                             }
                         }
                         
@@ -183,6 +224,8 @@ namespace FrontEnd.API.Controllers
 
 
         }
+
+
 
     }
 }

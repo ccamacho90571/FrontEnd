@@ -1,0 +1,41 @@
+﻿@model FrontEnd.API.Models.Publicidad
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Editar</h1>
+
+<h4>Publicidad</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit"  enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+
+                <input type="hidden" asp-for="CodPublicidad" class="form-control" />
+
+            </div>
+            <div class="form-group">
+                <img src="@Url.Content(Model.RutaArchivo)" alt="" style=" width: 50%; " />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Archivo" class="control-label"></label>
+                <input type="file" accept="image/*" name="Archivo" class="form-control" multiple />
+                <span asp-validation-for="Archivo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.ValidationMessage("ErrorEditarPublicidad", new { Style = "color: #FF665A;" })
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Regresar a la lista</a>
+</div>
+
