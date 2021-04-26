@@ -1,0 +1,35 @@
+﻿@model FrontEnd.API.Models.Usuarios
+@{
+    ViewData["Title"] = "RecuperarContrasena";
+    Layout = "~/Views/Shared/_LogIn.cshtml";
+}
+
+<h1>Recuperar contraseña</h1>
+<br />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="RecuperarContrasena">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label class="control-label">Digite su usuario</label>
+                <input type="text" asp-for="Usuario" class="form-control" />
+                @Html.ValidationMessage("ErrorUsuario", new { Style = "color: #FF665A;" })
+                <span asp-validation-for="Usuario" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+                @Html.ValidationMessage("ExitoContrasena", new { Style = "color: #00D147;" })
+            </div>
+        </form>
+    </div>
+    <div class="text-center p-t-90">
+        <a class="txt1" asp-action="LogIn">
+            Regresar al inicio
+        </a>
+        <br>
+
+    </div>
+</div>
+

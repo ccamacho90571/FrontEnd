@@ -24,9 +24,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Fecha)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
+           
             <th></th>
         </tr>
     </thead>
@@ -41,18 +39,16 @@
                     @Html.DisplayFor(modelItem => item.Usuario)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CodEmpresa)
+                    @Html.DisplayFor(modelItem => item.CodEmpresaNavigation.Nombre)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Fecha)
                 </td>
+               
                 <td>
-                    @Html.DisplayFor(modelItem => item.Estado)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.CodTicket">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.CodTicket">Detalle</a> |
-                    <a asp-action="Delete" asp-route-id="@item.CodTicket">Eliminar</a>
+                    @*<a asp-action="Edit" asp-route-id="@item.CodTicket">Editar</a> |*@
+                    <a asp-action="Details" asp-route-id="@item.CodTicket">Detalle</a> @*|*@
+                    @*<a asp-action="Delete" asp-route-id="@item.CodTicket">Eliminar</a>*@
                 </td>
             </tr>
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using FrontEnd.API.Tools;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,8 @@ namespace FrontEnd.API.Controllers
     public class UsuariosController : Controller
     {
         string baseurl = "https://localhost:44374/";
+        string Key = "crbda58907094133bbce2ea205081916";
+
         // GET: Usuarios
         public async Task<IActionResult> Index()
         {
@@ -69,6 +72,10 @@ namespace FrontEnd.API.Controllers
         {
             if (ModelState.IsValid)
             {
+                string cont = RetornarContrasena();
+
+                usuarios.Contrasena = Seguridad.EncryptString(Key, cont);
+                usuarios.Nombre = usuarios.Nombre.ToLower();
                 using (var cl = new HttpClient())
                 {
                     cl.BaseAddress = new Uri(baseurl);
@@ -80,6 +87,8 @@ namespace FrontEnd.API.Controllers
 
                     if (postTask.IsSuccessStatusCode)
                     {
+                        string body = CambiarCorreo(usuarios.Usuario, cont);
+                        Correo.EnviarCorreo(usuarios.Correo, "Nuevo registro", body);
                         return RedirectToAction(nameof(Index));
                     }
                 }
@@ -89,8 +98,8 @@ namespace FrontEnd.API.Controllers
             return View(usuarios);
         }
 
-            // GET: Usuarios/Edit/5
-            public async Task<IActionResult> Edit(string id)
+        // GET: Usuarios/Edit/5
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -235,6 +244,36 @@ namespace FrontEnd.API.Controllers
                 }
             }
             return aux;
+        }
+
+        protected string RetornarContrasena()
+        {
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var stringChars = new char[8];
+            var random = new Random();
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+            string finalString = new String(stringChars);
+            return finalString;
+
+        }
+
+        protected string CambiarCorreo(string Usuario, string Contrasena)
+        {
+            string Body = System.IO.File.ReadAllText("../FrontEnd.API/Tools/Plantillas_Correo/Correo_NuevoUsuario.html");
+
+            Body = Body.Replace("[Usuario]", Usuario);
+
+            Body = Body.Replace("[Contrasena]", Contrasena);
+
+            return Body;
+
+
+
+
+
         }
     }
 }

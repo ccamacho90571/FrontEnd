@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>MisReservas</h1>
+<h1>Mis Reservas</h1>
 
 <p>
   
@@ -14,8 +14,8 @@
     <thead>
         <tr>
             @*<th>
-                @Html.DisplayNameFor(model => model.CodTicket)
-            </th>*@
+            @Html.DisplayNameFor(model => model.CodTicket)
+        </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Nreserva)
             </th>
@@ -26,9 +26,12 @@
                 @Html.DisplayNameFor(model => model.CodEmpresa)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Espacio)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Fecha)
             </th>
-         
+
             <th></th>
         </tr>
     </thead>
@@ -36,8 +39,8 @@
 @foreach (var item in Model) {
         <tr>
             @*<td>
-                @Html.DisplayFor(modelItem => item.CodTicket)
-            </td>*@
+            @Html.DisplayFor(modelItem => item.CodTicket)
+        </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Nreserva)
             </td>
@@ -48,10 +51,13 @@
                 @Html.DisplayFor(modelItem => item.CodEmpresaNavigation.Nombre)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Espacio)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Fecha)
             </td>
-            
-         
+
+
         </tr>
 }
     </tbody>

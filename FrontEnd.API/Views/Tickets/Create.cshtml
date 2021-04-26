@@ -1,4 +1,4 @@
-﻿@model FrontEnd.Models.Tickets
+﻿@model FrontEnd.API.Models.Tickets
 
 @{
     ViewData["Title"] = "Create";
@@ -12,39 +12,49 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="CodTicket" class="control-label"></label>
-                <input asp-for="CodTicket" class="form-control" />
-                <span asp-validation-for="CodTicket" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Nreserva" class="control-label"></label>
-                <input asp-for="Nreserva" class="form-control" />
-                <span asp-validation-for="Nreserva" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Usuario" class="control-label"></label>
-                <input asp-for="Usuario" class="form-control" />
-                <span asp-validation-for="Usuario" class="text-danger"></span>
-            </div>
+            @*<div class="form-group">
+            <label asp-for="CodTicket" class="control-label"></label>
+            <input asp-for="CodTicket" class="form-control" />
+            <span asp-validation-for="CodTicket" class="text-danger"></span>
+        </div>*@
+            @*<div class="form-group">
+            <label asp-for="Nreserva" class="control-label"></label>
+            <input asp-for="Nreserva" class="form-control" />
+            <span asp-validation-for="Nreserva" class="text-danger"></span>
+        </div>*@
+            @*<div class="form-group">
+            <label asp-for="Usuario" class="control-label"></label>
+            <input asp-for="Usuario" class="form-control" />
+            <span asp-validation-for="Usuario" class="text-danger"></span>
+        </div>*@
             <div class="form-group">
                 <label asp-for="CodEmpresa" class="control-label"></label>
-                <input asp-for="CodEmpresa" class="form-control" />
+                <select asp-for="CodEmpresa" class="form-control" asp-items="ViewBag.CodEmpresas"></select>
+
                 <span asp-validation-for="CodEmpresa" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Fecha" class="control-label"></label>
                 <input asp-for="Fecha" class="form-control" />
                 <span asp-validation-for="Fecha" class="text-danger"></span>
+                @Html.ValidationMessage("ErrorEspaciosDisponibles", new { Style = "color: #FF665A;" })
+                @Html.ValidationMessage("ErrorNoEspacio", new { Style = "color: #FF665A;" })
             </div>
             <div class="form-group">
-                <label asp-for="Estado" class="control-label"></label>
-                <input asp-for="Estado" class="form-control" />
-                <span asp-validation-for="Estado" class="text-danger"></span>
+                <label asp-for="Espacio" class="control-label"></label>
+                <input asp-for="Espacio" class="form-control" />
+                <span asp-validation-for="Espacio" class="text-danger"></span>
+                @Html.ValidationMessage("ErrorReservasPermitidas", new { Style = "color: #FF665A;" })
             </div>
-            <div class="form-group">
-                <input type="submit" value="Crear" class="btn btn-primary" />
-            </div>
+            @*<div class="form-group">
+            <label asp-for="Estado" class="control-label"></label>
+            <input asp-for="Estado" class="form-control" />
+            <span asp-validation-for="Estado" class="text-danger"></span>
+        </div>*@
+        <div class="form-group">
+            <input type="submit" value="Crear" class="btn btn-primary" />
+            @Html.ValidationMessage("ExitoReserva", new { Style = "color: #00D147;" })
+        </div>
         </form>
     </div>
 </div>

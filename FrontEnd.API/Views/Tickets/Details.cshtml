@@ -1,4 +1,4 @@
-﻿@model FrontEnd.Models.Tickets
+﻿@model FrontEnd.API.Models.Tickets
 
 @{
     ViewData["Title"] = "Details";
@@ -26,7 +26,7 @@
             @Html.DisplayNameFor(model => model.CodEmpresa)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CodEmpresa)
+            @Html.DisplayFor(model => model.CodEmpresaNavigation.Nombre)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Fecha)
@@ -34,12 +34,7 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Fecha)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Estado)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Estado)
-        </dd>
+       
     </dl>
 </div>
 <div>
