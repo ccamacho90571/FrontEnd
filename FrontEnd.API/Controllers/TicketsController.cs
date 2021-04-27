@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using FrontEnd.API.Tools;
 using Newtonsoft.Json;
 using data = FrontEnd.API.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FrontEnd.API.Controllers
 {
@@ -20,6 +21,7 @@ namespace FrontEnd.API.Controllers
 
 
         // GET: Tickets
+        [Authorize(Roles = "Empresa,Usuario")]
         public async Task<IActionResult> Index()
         {
             //return View(await _context.Tickets.ToListAsync());
@@ -42,6 +44,7 @@ namespace FrontEnd.API.Controllers
         }
 
         // GET: Tickets
+        [Authorize(Roles = "Usuario")]
         public async Task<IActionResult> MisReservas()
         {
             //return View(await _context.Tickets.ToListAsync());
@@ -63,15 +66,15 @@ namespace FrontEnd.API.Controllers
             return View(aux.Where(m => m.Usuario == HttpContext.Session.GetString("Usuario")));
         }
 
-
+        [Authorize(Roles = "Empresa")]
         public async Task<IActionResult> ValidarTicket()
         {
             data.Tickets ticket = new data.Tickets();
             return View(ticket);
         }
 
-        
 
+        [Authorize(Roles = "Empresa")]
         public async Task<IActionResult> BuscarTicket(string NReserva)
         {
             try
@@ -121,6 +124,7 @@ namespace FrontEnd.API.Controllers
 
 
         // GET: Tickets/Details/5
+        [Authorize(Roles = "Empresa")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -140,6 +144,7 @@ namespace FrontEnd.API.Controllers
         }
 
         // GET: Tickets/Create
+        [Authorize(Roles = "Usuario")]
         public IActionResult Create()
         {
             ViewData["CodEmpresas"] = new SelectList(getAllEmpresas(), "CodEmpresa", "Nombre");
@@ -151,6 +156,7 @@ namespace FrontEnd.API.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Usuario")]
         public async Task<IActionResult> Create([Bind("CodTicket,Nreserva,Usuario,CodEmpresa,Espacio,Fecha,Estado")] data.Tickets tickets)
         {
             try
@@ -181,6 +187,7 @@ namespace FrontEnd.API.Controllers
                         {
                             tickets.Usuario = HttpContext.Session.GetString("Usuario");
                             tickets.Nreserva = "CRP" + RetornarCodigo();
+                            tickets.Estado = 1;
                             data.Usuarios auxusu = GetById(tickets.Usuario);
                             cl.BaseAddress = new Uri(baseurl);
                             var content = JsonConvert.SerializeObject(tickets);
@@ -404,6 +411,7 @@ namespace FrontEnd.API.Controllers
                 }
                 finalString = new String(stringChars);
 
+         
 
                 using (var cl = new HttpClient())
                 {
@@ -411,7 +419,7 @@ namespace FrontEnd.API.Controllers
                     cl.DefaultRequestHeaders.Clear();
                     cl.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
-                    HttpResponseMessage res = cl.GetAsync("api/Tickets/Tickets/" + finalString).Result;
+                    HttpResponseMessage res = cl.GetAsync("api/Tickets/Tickets/" + "CRP" + finalString).Result;
 
                     if (res.IsSuccessStatusCode)
                     {
@@ -472,7 +480,7 @@ namespace FrontEnd.API.Controllers
 
             Body = Body.Replace("[FECHA]", Fecha.ToShortDateString());
 
-            Body = Body.Replace("[ESPACIOS]", Lugar);
+            Body = Body.Replace("[ESPACIOS]", Espacios.ToString());
 
             Body = Body.Replace("[NombreLugar]", Lugar);
 
@@ -483,6 +491,10 @@ namespace FrontEnd.API.Controllers
         {
             int q = 0;
             int nday = (int)Fecha.DayOfWeek;
+            if (nday == 0)
+            {
+                nday = 7;
+            }
             List<data.ControlAforo> aux = new List<data.ControlAforo>();
             data.ControlAforo obj = new data.ControlAforo();
             using (var cl = new HttpClient())

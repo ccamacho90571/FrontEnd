@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,10 @@ namespace FrontEnd.API.Controllers
     public class EmpresaController : Controller
     {
         string baseurl = "https://localhost:44374/";
-        
+
+
+
+        [Authorize(Roles = "Administrador")]
         // GET: Empresas
         public async Task<IActionResult> Index()
         {
@@ -36,6 +40,8 @@ namespace FrontEnd.API.Controllers
             return View(aux);
         }
 
+
+        [Authorize(Roles = "Administrador")]
         // GET: Empresas/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -55,6 +61,8 @@ namespace FrontEnd.API.Controllers
             return View(empresas);
         }
 
+
+        [Authorize(Roles = "Administrador")]
         // GET: Empresas/Create
         public IActionResult Create()
         {
@@ -88,6 +96,9 @@ namespace FrontEnd.API.Controllers
             return View(empresa);
         }
 
+
+
+        [Authorize(Roles = "Administrador")]
         // GET: Empresas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -110,6 +121,7 @@ namespace FrontEnd.API.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(int id, [Bind("CodEmpresa,Nombre,Ubicacion,ReservasUsuario")] data.Empresa empresa)
         {
             if (id != empresa.CodEmpresa)
@@ -154,6 +166,7 @@ namespace FrontEnd.API.Controllers
         }
 
         // GET: Empresas/Delete/5
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -173,6 +186,7 @@ namespace FrontEnd.API.Controllers
         // POST: Empresas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             using (var cl = new HttpClient())

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FrontEnd.API.Tools;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ namespace FrontEnd.API.Controllers
         string Key = "crbda58907094133bbce2ea205081916";
 
         // GET: Usuarios
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Index()
         {
             List<data.Usuarios> aux = new List<data.Usuarios>();
@@ -38,6 +40,7 @@ namespace FrontEnd.API.Controllers
         }
 
         // GET: Usuarios/Details/5
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Details(string id)
         {
             if (id == null)
@@ -57,6 +60,7 @@ namespace FrontEnd.API.Controllers
         }
 
         // GET: Usuarios/Create
+        [Authorize(Roles = "Administrador")]
         public IActionResult Create()
         {
             ViewData["CodEmpresa"] = new SelectList(getAllEmpresa(), "CodEmpresa", "Nombre");
@@ -68,6 +72,7 @@ namespace FrontEnd.API.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Create([Bind("Usuario,Contrasena,Tipo,CodEmpresa,Nombre,Correo")] data.Usuarios usuarios)
         {
             if (ModelState.IsValid)
@@ -99,6 +104,7 @@ namespace FrontEnd.API.Controllers
         }
 
         // GET: Usuarios/Edit/5
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
@@ -121,6 +127,7 @@ namespace FrontEnd.API.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Edit(string id, [Bind("Usuario,Contrasena,Tipo,CodEmpresa,Nombre,Correo")] data.Usuarios usuarios)
         {
             if (id != usuarios.Usuario)
@@ -166,6 +173,7 @@ namespace FrontEnd.API.Controllers
         }
 
         // GET: Usuarios/Delete/5
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -185,6 +193,7 @@ namespace FrontEnd.API.Controllers
         // POST: Usuarios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             using (var cl = new HttpClient())

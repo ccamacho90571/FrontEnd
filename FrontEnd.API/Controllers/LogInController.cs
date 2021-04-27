@@ -331,7 +331,7 @@ AuthenticationScheme);
                     string cont = RetornarContrasena();
                     User.Tipo = false;
                     User.Contrasena = Seguridad.EncryptString(Key, cont);
-                    User.Nombre = User.Nombre.ToLower();
+                    User.Nombre = User.Nombre;
                     using (var cl = new HttpClient())
                     {
                         cl.BaseAddress = new Uri(baseurl);

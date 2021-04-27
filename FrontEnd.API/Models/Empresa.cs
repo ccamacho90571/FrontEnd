@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,7 +11,11 @@ namespace FrontEnd.API.Models
 
         public int CodEmpresa { get; set; }
         public string Nombre { get; set; }
+
+        [Display(Name = "Ubicación")]
         public string Ubicacion { get; set; }
+
+        [Display(Name = "Reservas por usuario")]
         public int ReservasUsuario { get; set; }
 
         public virtual ICollection<Boleteria> Boleteria { get; set; }

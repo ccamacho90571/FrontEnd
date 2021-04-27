@@ -8,7 +8,7 @@ namespace FrontEnd.API.Models
     {
         public string Usuario { get; set; }
 
-      
+        [Display(Name = "Contraseña")]
         public string Contrasena { get; set; }
         public bool Tipo { get; set; }
         public int? CodEmpresa { get; set; }
@@ -20,6 +20,8 @@ namespace FrontEnd.API.Models
 
         [Display(Name = "Repetir contraseña")]
         public string Contrasena2 { get; set; }
+
+        [Display(Name = "Empresa")]
         public virtual Empresa CodEmpresaNavigation { get; set; }
     }
 }

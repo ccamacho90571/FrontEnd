@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,8 @@ namespace FrontEnd.API.Controllers
             hostingEnvironment = environment;
         }
         // GET: Publicidad
+
+        [Authorize(Roles = "Empresa")]
         public async Task<IActionResult> Index()
         {
             List<data.Publicidad> aux = new List<data.Publicidad>();
@@ -45,6 +48,7 @@ namespace FrontEnd.API.Controllers
             return View(aux.Where(m => m.CodEmpresa == HttpContext.Session.GetInt32("CodEmpresa")));
         }
 
+        [Authorize(Roles = "Empresa")]
         // GET: Publicidad/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -65,6 +69,8 @@ namespace FrontEnd.API.Controllers
             return View(publicidad);
         }
 
+
+        [Authorize(Roles = "Empresa")]
         // GET: Publicidads/Create
         public IActionResult Create()
         {
@@ -75,6 +81,7 @@ namespace FrontEnd.API.Controllers
         // POST: Publicidads/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Empresa")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(data.Publicidad publicidad)
@@ -145,6 +152,7 @@ namespace FrontEnd.API.Controllers
                       + Path.GetExtension(fileName);
         }
         // GET: Publicidads/Edit/5
+        [Authorize(Roles = "Empresa")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -166,6 +174,7 @@ namespace FrontEnd.API.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Empresa")]
         public async Task<IActionResult> Edit(int id, data.Publicidad publicidad)
         {
             if (id != publicidad.CodPublicidad)
@@ -256,6 +265,7 @@ namespace FrontEnd.API.Controllers
         }
 
         // GET: Publicidads/Delete/5
+        [Authorize(Roles = "Empresa")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -275,6 +285,7 @@ namespace FrontEnd.API.Controllers
         // POST: Publicidads/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Empresa")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             using (var cl = new HttpClient())
